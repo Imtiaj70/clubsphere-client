@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: "Inter", sans-serif;
+    @apply bg-base-100 text-neutral;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+@layer components {
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold font-heading text-neutral mb-3;
+  }
+  .section-subtitle {
+    @apply text-base-content/60 text-lg max-w-2xl mx-auto;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+  .badge-status-approved {
+    @apply badge badge-success badge-sm;
+  }
+  .badge-status-pending {
+    @apply badge badge-warning badge-sm;
+  }
+  .badge-status-rejected {
+    @apply badge badge-error badge-sm;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #6C63FF; border-radius: 3px; }
