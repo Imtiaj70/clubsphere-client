@@ -14,11 +14,7 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
   const [showPass, setShowPass] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm();
+  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async ({ email, password }) => {
     try {
@@ -44,6 +40,14 @@ const Login = () => {
     }
   };
 
+  // Demo login auto-fill
+  const fillDemo = () => {
+    setValue("email", "admin@clubsphere.com");
+    setValue("password", "admin123");
+
+    toast.success("Demo credentials filled! Click Sign In.");
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200 py-12 px-4">
       <motion.div
@@ -61,6 +65,34 @@ const Login = () => {
               </Link>
               <h2 className="text-xl font-semibold mt-3 text-neutral">Welcome back</h2>
               <p className="text-base-content/50 text-sm mt-1">Sign in to your account</p>
+            </div>
+
+            {/* Demo login buttons */}
+            <div className="bg-base-200 rounded-xl p-3 mb-4">
+              <p className="text-xs text-base-content/50 text-center mb-2 font-medium">🧪 Demo Accounts</p>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => fillDemo("admin@clubsphere.com", "Admin@123")}
+                  className="btn btn-xs btn-error"
+                >
+                  Admin
+                </button>
+                <button
+                  type="button"
+                  onClick={() => fillDemo("manager@clubsphere.com", "Manager@123")}
+                  className="btn btn-xs btn-warning"
+                >
+                  Manager
+                </button>
+                <button
+                  type="button"
+                  onClick={() => fillDemo("member@clubsphere.com", "Member@123")}
+                  className="btn btn-xs btn-success"
+                >
+                  Member
+                </button>
+              </div>
             </div>
 
             {/* Google login */}
@@ -92,9 +124,7 @@ const Login = () => {
                     })}
                   />
                 </div>
-                {errors.email && (
-                  <p className="text-error text-xs mt-1">{errors.email.message}</p>
-                )}
+                {errors.email && <p className="text-error text-xs mt-1">{errors.email.message}</p>}
               </div>
 
               {/* Password */}
@@ -118,9 +148,7 @@ const Login = () => {
                     {showPass ? <FiEyeOff /> : <FiEye />}
                   </button>
                 </div>
-                {errors.password && (
-                  <p className="text-error text-xs mt-1">{errors.password.message}</p>
-                )}
+                {errors.password && <p className="text-error text-xs mt-1">{errors.password.message}</p>}
               </div>
 
               <button

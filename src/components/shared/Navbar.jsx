@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
-import { FiChevronDown } from "react-icons/fi";
+import { FiChevronDown, FiMenu } from "react-icons/fi";
 
 const Navbar = () => {
   const { user, dbUser, logout } = useAuth();
@@ -18,11 +18,26 @@ const Navbar = () => {
     dbUser?.role === "clubManager" ? "/dashboard/manager" :
     "/dashboard/member";
 
-  const navLinks = [
+  // Logged out: 4 links
+  const publicLinks = [
     { to: "/", label: "Home" },
     { to: "/clubs", label: "Clubs" },
     { to: "/events", label: "Events" },
+    { to: "/about", label: "About" },
+    { to: "/contact", label: "Contact" },
   ];
+
+  // Logged in: 6+ links
+  const privateLinks = [
+    { to: "/", label: "Home" },
+    { to: "/clubs", label: "Clubs" },
+    { to: "/events", label: "Events" },
+    { to: "/about", label: "About" },
+    { to: "/contact", label: "Contact" },
+    { to: dashboardPath, label: "Dashboard" },
+  ];
+
+  const navLinks = user ? privateLinks : publicLinks;
 
   return (
     <nav className="bg-neutral shadow-lg sticky top-0 z-40">
@@ -33,13 +48,13 @@ const Navbar = () => {
             Club<span className="text-secondary">Sphere</span>
           </Link>
 
-          {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-6">
+          {/* Desktop nav */}
+          <div className="hidden lg:flex items-center gap-5">
             {navLinks.map((link) => (
               <NavLink
-                key={link.to}
+                key={link.to + link.label}
                 to={link.to}
-                end
+                end={link.to === "/"}
                 className={({ isActive }) =>
                   `text-sm font-medium transition-colors ${
                     isActive ? "text-secondary" : "text-white/80 hover:text-white"
@@ -51,11 +66,11 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Auth section */}
+          {/* Auth */}
           <div className="flex items-center gap-3">
             {!user ? (
               <>
-                <Link to="/login" className="btn btn-ghost btn-sm text-white">
+                <Link to="/login" className="btn btn-ghost btn-sm text-white hidden md:flex">
                   Login
                 </Link>
                 <Link to="/register" className="btn btn-secondary btn-sm">
@@ -66,10 +81,7 @@ const Navbar = () => {
               <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="flex items-center gap-2 cursor-pointer">
                   <img
-                    src={
-                      user.photoURL ||
-                      `https://ui-avatars.com/api/?name=${user.displayName}&background=6C63FF&color=fff`
-                    }
+                    src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=6C63FF&color=fff`}
                     alt="avatar"
                     className="w-9 h-9 rounded-full object-cover ring-2 ring-secondary"
                   />
@@ -85,36 +97,36 @@ const Navbar = () => {
                       <p className="text-xs text-base-content/50 capitalize">{dbUser?.role}</p>
                     </div>
                   </li>
-                  <li>
-                    <Link to={dashboardPath} className="text-sm">
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <button onClick={handleLogout} className="text-sm text-error">
-                      Logout
-                    </button>
-                  </li>
+                  <li><Link to={dashboardPath} className="text-sm">Dashboard</Link></li>
+                  <li><Link to="/dashboard/profile" className="text-sm">Profile</Link></li>
+                  <li><button onClick={handleLogout} className="text-sm text-error">Logout</button></li>
                 </ul>
               </div>
             )}
 
-            {/* Mobile menu toggle */}
-            <div className="md:hidden dropdown dropdown-end">
+            {/* Mobile menu */}
+            <div className="lg:hidden dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-sm text-white">
-                ☰
+                <FiMenu size={20} />
               </label>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-xl w-44 mt-2"
+                className="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-xl w-48 mt-2"
               >
                 {navLinks.map((link) => (
-                  <li key={link.to}>
-                    <NavLink to={link.to} end className="text-sm">
+                  <li key={link.to + link.label}>
+                    <NavLink to={link.to} end={link.to === "/"} className="text-sm">
                       {link.label}
                     </NavLink>
                   </li>
                 ))}
+                {!user && (
+                  <>
+                    <div className="divider my-1" />
+                    <li><Link to="/login" className="text-sm">Login</Link></li>
+                    <li><Link to="/register" className="text-sm">Register</Link></li>
+                  </>
+                )}
               </ul>
             </div>
           </div>

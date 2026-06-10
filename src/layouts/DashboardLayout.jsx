@@ -13,12 +13,14 @@ const adminLinks = [
   { to: "/dashboard/admin/users", label: "Manage Users", icon: <FiUsers /> },
   { to: "/dashboard/admin/clubs", label: "Manage Clubs", icon: <FiLayers /> },
   { to: "/dashboard/admin/payments", label: "Payments", icon: <FiDollarSign /> },
+  { to: "/dashboard/profile", label: "Profile", icon: <FiUser /> },
 ];
 
 const managerLinks = [
   { to: "/dashboard/manager", label: "Overview", icon: <FiBarChart2 /> },
   { to: "/dashboard/manager/clubs", label: "My Clubs", icon: <FiLayers /> },
   { to: "/dashboard/manager/events", label: "Events", icon: <FiCalendar /> },
+  { to: "/dashboard/profile", label: "Profile", icon: <FiUser /> },
 ];
 
 const memberLinks = [
@@ -26,6 +28,7 @@ const memberLinks = [
   { to: "/dashboard/member/memberships", label: "My Clubs", icon: <FiList /> },
   { to: "/dashboard/member/events", label: "My Events", icon: <FiCalendar /> },
   { to: "/dashboard/member/payments", label: "Payments", icon: <FiDollarSign /> },
+  { to: "/dashboard/profile", label: "Profile", icon: <FiUser /> },
 ];
 
 const DashboardLayout = () => {

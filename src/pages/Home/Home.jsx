@@ -399,13 +399,150 @@ const CTABanner = () => {
 };
 
 // ---------- Main Home ----------
+
+// ---------- Statistics ----------
+const Statistics = () => {
+  const stats = [
+    { value: "200+", label: "Active Clubs", emoji: "🏛️" },
+    { value: "5,000+", label: "Happy Members", emoji: "😊" },
+    { value: "500+", label: "Events Hosted", emoji: "🎉" },
+    { value: "20+", label: "Categories", emoji: "🎯" },
+  ];
+  return (
+    <section className="py-20 bg-gradient-to-r from-primary to-secondary">
+      <div className="max-w-6xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold font-heading text-white mb-2">
+            ClubSphere by the Numbers
+          </h2>
+          <p className="text-white/70">Growing every day with passionate community members</p>
+        </motion.div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="text-center bg-white/10 backdrop-blur rounded-2xl p-6"
+            >
+              <p className="text-4xl mb-2">{stat.emoji}</p>
+              <p className="text-3xl font-bold font-heading text-white">{stat.value}</p>
+              <p className="text-white/70 text-sm mt-1">{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ---------- Testimonials ----------
+const Testimonials = () => {
+  const reviews = [
+    { name: "Sarah K.", role: "Photography Club Member", text: "ClubSphere helped me find an amazing photography club in my city. The events are fantastic and I've made lifelong friends!", avatar: "SK" },
+    { name: "James R.", role: "Hiking Group Organizer", text: "As a club manager, managing members and events has never been easier. The dashboard is incredibly intuitive.", avatar: "JR" },
+    { name: "Maria L.", role: "Book Club Member", text: "I love how easy it is to discover new clubs and register for events. The payment process is super smooth too!", avatar: "ML" },
+  ];
+  return (
+    <section className="py-20 bg-base-200">
+      <div className="max-w-6xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <h2 className="section-title">What Members Say</h2>
+          <p className="section-subtitle">Real stories from our community</p>
+        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {reviews.map((r, i) => (
+            <motion.div
+              key={r.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="card bg-base-100 shadow border border-base-300 p-6"
+            >
+              <p className="text-4xl text-primary mb-4">"</p>
+              <p className="text-base-content/70 text-sm leading-relaxed mb-5">{r.text}</p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary text-white text-sm font-bold flex items-center justify-center">
+                  {r.avatar}
+                </div>
+                <div>
+                  <p className="font-semibold text-sm">{r.name}</p>
+                  <p className="text-xs text-base-content/40">{r.role}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ---------- FAQ ----------
+const FAQ = () => {
+  const faqs = [
+    { q: "Is ClubSphere free to use?", a: "Joining ClubSphere is completely free. Some clubs may charge a membership fee, but browsing and registering for free events costs nothing." },
+    { q: "How do I create a club?", a: "Register an account, then contact our admin to get the Club Manager role. Once approved, you can create and manage your own clubs." },
+    { q: "How does payment work?", a: "We use Stripe for secure payments. Your card details are never stored on our servers — everything is handled by Stripe's secure infrastructure." },
+    { q: "Can I manage multiple clubs?", a: "Yes! As a Club Manager, you can create and manage multiple clubs, each with their own events and members." },
+  ];
+  return (
+    <section className="py-20 bg-base-100">
+      <div className="max-w-3xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <h2 className="section-title">Frequently Asked Questions</h2>
+          <p className="section-subtitle">Everything you need to know about ClubSphere</p>
+        </motion.div>
+        <div className="space-y-4">
+          {faqs.map((faq, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="collapse collapse-plus bg-base-100 border border-base-300 rounded-xl shadow-sm"
+            >
+              <input type="radio" name="faq-accordion" />
+              <div className="collapse-title font-semibold">{faq.q}</div>
+              <div className="collapse-content text-base-content/70 text-sm">{faq.a}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ---------- Main Home ----------
 const Home = () => (
   <div>
-    <Hero></Hero>
+    <Hero />
     <FeaturedClubs />
+    <Statistics />
     <HowItWorks />
     <UpcomingEvents />
+    <Testimonials />
     <Categories />
+    <FAQ />
     <CTABanner />
   </div>
 );
